@@ -1,0 +1,34 @@
+=========
+hackMatch
+=========
+
+hackMatch is an open-source matching algorithm. It accepts two sets of text and finds the best matches between each.
+
+For example, at hackNY.org we use hackMatch to match students with appropriate internship opportunities.
+
+This script is open source, and patches are welcome.
+
+============
+Dependencies
+============
+
+hackMatch uses NLTK (nltk.org) and hcluster (for distance metrics).
+
+=======
+License
+=======
+
+Copyright 2010 hackNY.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.

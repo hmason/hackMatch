@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
+# recognize.
 """
 hackmatch.py
 
-Created by Hilary Mason on 2010-05-02.
-Copyright (c) 2010 Hilary Mason. All rights reserved.
+Created by Hilary Mason, Chris Wiggins, and Evan Korth.
+Copyright (c) 2010 hackNY. All rights reserved.
 """
 
 import sys, os
