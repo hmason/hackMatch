@@ -12,6 +12,7 @@ import sys, os
 import csv
 import string
 from collections import defaultdict
+from optparse import OptionParser
 from nltk.tokenize import *
 from nltk.corpus import stopwords
 from hcluster import jaccard
@@ -21,17 +22,15 @@ from hcluster import jaccard
 
 class HackMatch(object):
     DEBUG = False
-    STUDENT_FILE = 'unmatched_students.csv'
-    STARTUP_FILE = 'unmatched_top_startups.csv'
     BOW_FIELDS = ['Environment', 'Project', 'Skills', 'Misc']
     COMPLETENESS_THRESHOLD = 4 # num of words necessary to match
     
-    def __init__(self, distance=jaccard, num_matches=3):
+    def __init__(self, student_file, startup_file, num_matches=3, distance=jaccard):
         self.stopwords = self.get_stopwords()
         self.distance = distance
         
-        student_data = self.parseCSV(self.STUDENT_FILE)
-        startup_data = self.parseCSV(self.STARTUP_FILE)
+        student_data = self.parseCSV(student_file)
+        startup_data = self.parseCSV(startup_file)
         
         doc_words = self.defineFeatures([student_data, startup_data], self.BOW_FIELDS)
 
@@ -114,8 +113,6 @@ class HackMatch(object):
                         for t in [t.lower() for t in tokens if t.lower() not in self.stopwords]:
                             t = t.strip('.')
                             ngram_freq[t] = ngram_freq.get(t, 0) + 1
-
-                        # for i in range(0,len(ngram_freq)):
                             
         ngram_freq = dict([(w,c) for w,c in ngram_freq.items() if c > 1])
         if self.DEBUG:
@@ -136,4 +133,10 @@ class HackMatch(object):
         
         
 if __name__ == '__main__':
-    h = HackMatch(num_matches=15)
+    parser = OptionParser()
+    parser.add_option("-n","--number", action="store", type="int", dest="num_matches",default=10,help="number of results to return")
+    parser.add_option("-s","--student", action="store", type="string", dest="student_file",default="unmatched_students.csv",help="csv of student data")
+    parser.add_option("-t","--startup", action="store", type="string", dest="startup_file",default="unmatched_top_startups.csv",help="csv of startup data")
+    (options, args) = parser.parse_args()
+    
+    h = HackMatch(num_matches=options.num_matches, student_file=options.student_file, startup_file=options.startup_file)
